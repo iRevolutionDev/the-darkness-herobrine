@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "software.revolution.mixin.client",
+	"compatibilityLevel": "JAVA_17",
+	"client": [
+      "TheDarknessHerobrineClientMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

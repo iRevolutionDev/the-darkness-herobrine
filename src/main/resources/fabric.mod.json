@@ -1,0 +1,54 @@
+{
+	"schemaVersion": 1,
+	"id": "the-darkness-herobrine",
+	"version": "${version}",
+	"name": "The Darkness Herobrine",
+	"description": "Herobrine is seen you in the darkness.",
+	"authors": [
+		"Revolution"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/the-darkness-herobrine/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "software.revolution.TheDarknessHerobrine",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "software.revolution.TheDarknessHerobrineClient",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "software.revolution.TheDarknessHerobrineGenerator",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"the-darkness-herobrine.mixins.json",
+		{
+			"config": "the-darkness-herobrine.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.14.22",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=1.9.0"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
