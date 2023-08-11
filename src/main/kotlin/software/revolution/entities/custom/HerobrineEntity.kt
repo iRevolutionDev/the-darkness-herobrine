@@ -50,13 +50,12 @@ class HerobrineEntity(entityType: EntityType<HerobrineEntity>, world: World) : H
     }
 
     override fun mobTick() {
-        lifeTime--
-
         if (lifeTime <= 0) {
             TheDarknessHerobrine.logger.info("Herobrine removed at $lifeTime")
             remove(RemovalReason.DISCARDED)
         }
 
+        lifeTime--
         super.mobTick()
     }
 }
