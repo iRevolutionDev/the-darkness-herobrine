@@ -9,7 +9,7 @@ import software.revolution.entities.custom.HerobrineEntity
 
 object TheDarknessHerobrine : ModInitializer {
     const val MOD_ID = "the-darkness-herobrine"
-    private val logger: Logger = LoggerFactory.getLogger(MOD_ID)
+    val logger: Logger = LoggerFactory.getLogger(MOD_ID)
 
     override fun onInitialize() {
         logger.info("Initializing $MOD_ID")
