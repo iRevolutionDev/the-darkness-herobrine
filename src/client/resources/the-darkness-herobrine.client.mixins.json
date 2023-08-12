@@ -3,8 +3,7 @@
   "package": "software.revolution.mixin.client",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "OptionsScreenMixin",
-    "TheDarknessHerobrineClientMixin"
+    "OptionsScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
