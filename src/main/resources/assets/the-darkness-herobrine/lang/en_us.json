@@ -1,5 +1,7 @@
 {
   "ui.settings.button": "Herobrine Settings",
   "ui.settings.title": "Herobrine Settings",
-  "ui.settings.back": "Done"
+  "ui.settings.back": "Done",
+  "ui.settings.reset": "Reset",
+  "ui.settings.options.crash": "Crash"
 }

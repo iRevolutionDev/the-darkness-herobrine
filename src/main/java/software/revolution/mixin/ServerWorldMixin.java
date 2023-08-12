@@ -1,6 +1,5 @@
 package software.revolution.mixin;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -21,12 +20,16 @@ import java.util.Random;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin {
 
-    @Shadow @NotNull public abstract MinecraftServer getServer();
-
-    @Shadow @Nullable public abstract ServerPlayerEntity getRandomAlivePlayer();
-
     @Unique
     private int spawnHerobrineTimer = 0;
+
+    @Shadow
+    @NotNull
+    public abstract MinecraftServer getServer();
+
+    @Shadow
+    @Nullable
+    public abstract ServerPlayerEntity getRandomAlivePlayer();
 
     @Inject(at = @At("TAIL"), method = "tick")
     private void tick(CallbackInfo info) {
@@ -39,9 +42,13 @@ public abstract class ServerWorldMixin {
 
             // Spawn Herobrine in front of player
             getServer().getWorld(player.getEntityWorld().getRegistryKey())
-                    .spawnEntity(MobEntities.INSTANCE.getHEROBRINE()
-                            .spawn(getServer().getWorld(player.getEntityWorld().getRegistryKey()), BlockPos.ofFloored(player.getRotationVector().multiply(5))
-                                    , SpawnReason.TRIGGERED));
+                    .spawnEntity(
+                            MobEntities.INSTANCE.getHEROBRINE()
+                                    .spawn(getServer().getWorld(player.getEntityWorld().getRegistryKey()),
+                                            BlockPos.ofFloored(player.getRotationVector().multiply(5)),
+                                            SpawnReason.TRIGGERED
+                                    )
+                    );
 
             spawnHerobrineTimer = new Random().nextInt(100);
         }
