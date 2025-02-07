@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.revolution.the_darkness_herobrine.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "the_darkness_herobrine.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
