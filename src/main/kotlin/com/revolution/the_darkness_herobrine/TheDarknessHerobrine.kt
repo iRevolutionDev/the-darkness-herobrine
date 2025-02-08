@@ -1,7 +1,9 @@
 package com.revolution.the_darkness_herobrine
 
-import com.revolution.the_darkness_herobrine.block.ModBlocks
+import com.revolution.the_darkness_herobrine.entity.ModEntities
+import com.revolution.the_darkness_herobrine.entity.client.HerobrineRenderer
 import net.minecraft.client.Minecraft
+import net.minecraft.client.renderer.entity.EntityRenderers
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.common.Mod
@@ -22,6 +24,8 @@ object TheDarknessHerobrine {
     private val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
+        ModEntities.ENTITY_TYPES.register(MOD_BUS);
+
         runForDist(clientTarget = {
             MOD_BUS.addListener(::onClientSetup)
             Minecraft.getInstance()
@@ -33,6 +37,8 @@ object TheDarknessHerobrine {
 
     private fun onClientSetup(event: FMLClientSetupEvent) {
         LOGGER.log(Level.INFO, "Initializing client...")
+
+        EntityRenderers.register(ModEntities.HEROBRINE.get(), ::HerobrineRenderer)
     }
 
     private fun onServerSetup(event: FMLDedicatedServerSetupEvent) {
