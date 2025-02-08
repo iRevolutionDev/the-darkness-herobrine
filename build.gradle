@@ -16,6 +16,7 @@ repositories {
         url = 'https://thedarkcolour.github.io/KotlinForForge/'
         content { includeGroup "thedarkcolour" }
     }
+    maven { url = "https://api.modrinth.com/maven" }
 }
 
 base {
@@ -42,6 +43,9 @@ neoForge {
     runs {
         client {
             client()
+            jvmArguments = [
+                '-XX:+AllowEnhancedClassRedefinition'
+            ]
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
@@ -104,6 +108,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     implementation 'thedarkcolour:kotlinforforge-neoforge:5.3.0'
+    compileOnly "maven.modrinth:entitytexturefeatures:441qELLe"
 
     // Example mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
