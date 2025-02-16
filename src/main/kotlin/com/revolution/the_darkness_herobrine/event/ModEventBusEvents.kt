@@ -3,7 +3,7 @@ package com.revolution.the_darkness_herobrine.event
 import com.revolution.the_darkness_herobrine.TheDarknessHerobrine
 import com.revolution.the_darkness_herobrine.entity.ModEntities
 import com.revolution.the_darkness_herobrine.entity.client.HerobrineModel
-import com.revolution.the_darkness_herobrine.entity.custom.HerobrineEntity
+import com.revolution.the_darkness_herobrine.entity.custom.HerobrineSpy
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.client.event.EntityRenderersEvent
@@ -18,6 +18,6 @@ object ModEventBusEvents {
 
     @SubscribeEvent
     fun registerAttributes(event: EntityAttributeCreationEvent) {
-        event.put(ModEntities.HEROBRINE.get(), HerobrineEntity.createAttributes().build())
+        event.put(ModEntities.HEROBRINE_SPY.get(), HerobrineSpy.createAttributes().build())
     }
 }

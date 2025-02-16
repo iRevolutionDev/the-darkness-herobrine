@@ -1,24 +1,24 @@
 package com.revolution.the_darkness_herobrine.entity.custom
 
 import net.minecraft.Util
+import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
-import net.minecraft.network.syncher.EntityDataSerializer
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.util.RandomSource
+import net.minecraft.world.Difficulty
 import net.minecraft.world.DifficultyInstance
 import net.minecraft.world.entity.EntitySpawnReason
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.SpawnGroupData
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal
 import net.minecraft.world.entity.monster.Monster
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.ServerLevelAccessor
 
-class HerobrineEntity(type: EntityType<out HerobrineEntity>, level: Level) : Monster(type, level) {
+open class HerobrineEntity(type: EntityType<out HerobrineEntity>, level: Level) : Monster(type, level) {
     companion object {
         val VARIANT: EntityDataAccessor<Int> = SynchedEntityData.defineId(HerobrineEntity::class.java, EntityDataSerializers.INT)
 
@@ -28,6 +28,16 @@ class HerobrineEntity(type: EntityType<out HerobrineEntity>, level: Level) : Mon
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
                 .add(Attributes.ATTACK_SPEED, 4.0)
                 .add(Attributes.FOLLOW_RANGE, 32.0)
+        }
+
+        fun canSpawn(
+            type: EntityType<HerobrineEntity>?,
+            level: ServerLevelAccessor,
+            reason: EntitySpawnReason,
+            location: BlockPos,
+            random: RandomSource
+        ): Boolean {
+            return level.difficulty != Difficulty.PEACEFUL
         }
     }
 
@@ -39,12 +49,6 @@ class HerobrineEntity(type: EntityType<out HerobrineEntity>, level: Level) : Mon
         set(value) {
             this.entityData.set(VARIANT, value.id)
         }
-
-    override fun registerGoals() {
-        super.registerGoals()
-
-        this.targetSelector.addGoal(1, LookAtPlayerGoal(this, Player::class.java, 12f))
-    }
 
     override fun defineSynchedData(builder: SynchedEntityData.Builder) {
         super.defineSynchedData(builder)
