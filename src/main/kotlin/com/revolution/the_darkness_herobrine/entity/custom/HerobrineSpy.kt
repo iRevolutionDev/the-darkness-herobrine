@@ -1,9 +1,10 @@
 package com.revolution.the_darkness_herobrine.entity.custom
 
-import net.minecraft.core.BlockPos
-import net.minecraft.util.RandomSource
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.syncher.EntityDataAccessor
+import net.minecraft.network.syncher.EntityDataSerializers
+import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.Difficulty
-import net.minecraft.world.entity.EntitySpawnReason
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
@@ -17,9 +18,9 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.ServerLevelAccessor
 
 class HerobrineSpy(type: EntityType<out HerobrineSpy>, level: Level) : HerobrineEntity(type, level) {
-   private var lifetime: Int = 5000;
-
     companion object {
+        val LIFETIME: EntityDataAccessor<Int> = SynchedEntityData.defineId(HerobrineSpy::class.java, EntityDataSerializers.INT)
+
         fun createAttributes(): AttributeSupplier.Builder {
             return createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0)
@@ -29,14 +30,34 @@ class HerobrineSpy(type: EntityType<out HerobrineSpy>, level: Level) : Herobrine
         }
 
         fun canSpawn(
-            type: EntityType<out HerobrineSpy>,
-            level: ServerLevelAccessor,
-            reason: EntitySpawnReason,
-            location: BlockPos,
-            random: RandomSource
+            level: ServerLevelAccessor
         ): Boolean {
             return level.difficulty != Difficulty.PEACEFUL
         }
+    }
+
+    private var lifetime: Int
+        get() = this.entityData.get(LIFETIME)
+        set(value) {
+            this.entityData.set(LIFETIME, value)
+        }
+
+    override fun defineSynchedData(builder: SynchedEntityData.Builder) {
+        super.defineSynchedData(builder)
+
+        builder.define(LIFETIME, 5000)
+    }
+
+    override fun addAdditionalSaveData(compound: CompoundTag) {
+        super.addAdditionalSaveData(compound)
+
+        compound.putInt("Lifetime", lifetime)
+    }
+
+    override fun readAdditionalSaveData(compound: CompoundTag) {
+        super.readAdditionalSaveData(compound)
+
+        lifetime = compound.getInt("Lifetime")
     }
 
     override fun registerGoals() {
