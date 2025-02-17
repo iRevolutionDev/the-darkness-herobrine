@@ -13,6 +13,7 @@ import net.neoforged.fml.common.Mod
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -29,8 +30,6 @@ object TheDarknessHerobrine {
     init {
         ModEntities.ENTITY_TYPES.register(MOD_BUS)
 
-        registerEntitySpawns()
-
         runForDist(clientTarget = {
             MOD_BUS.addListener(::onClientSetup)
             Minecraft.getInstance()
@@ -38,20 +37,6 @@ object TheDarknessHerobrine {
             MOD_BUS.addListener(::onServerSetup)
             "test"
         })
-    }
-
-    private fun registerEntitySpawns() {
-        SpawnPlacements.SpawnPredicate<HerobrineSpy>(
-            function = { _, level, _, _, _ ->
-                HerobrineSpy.canSpawn(level)
-            }
-        )
-
-        SpawnPlacements.SpawnPredicate<HerobrineStalker>(
-            function = { _, level, _, _, _ ->
-                HerobrineStalker.canSpawn(level)
-            }
-        )
     }
 
     private fun onClientSetup(event: FMLClientSetupEvent) {
