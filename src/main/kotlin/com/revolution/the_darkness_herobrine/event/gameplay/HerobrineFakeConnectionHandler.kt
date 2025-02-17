@@ -12,29 +12,35 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks
 object HerobrineFakeConnectionHandler {
     private const val MIN_INTERVAL = 6000
     private const val MAX_INTERVAL = 18000
+
+    private const val HEROBRINE_NAME = "Herobrine"
+
     private var interval = getInterval()
 
     private val messages = listOf(
         Component
-            .translatable("multiplayer.player.joined", "Herobrine")
+            .translatable("multiplayer.player.joined", HEROBRINE_NAME)
             .withStyle {
                 it.withColor(ChatFormatting.YELLOW)
             },
         Component
-            .translatable("multiplayer.player.left", "Herobrine")
+            .translatable("multiplayer.player.left", HEROBRINE_NAME)
             .withStyle {
                 it.withColor(ChatFormatting.YELLOW)
-            }
+            },
     )
 
     @SubscribeEvent
     fun onServerTick(event: ServerTickEvent.Post) {
         interval--
 
-        if (interval <= 0) {
+        if (interval > 0) return
+
+        if (messages.isNotEmpty()) {
             sendBroadcastMessage(messages.random())
-            interval = getInterval()
         }
+
+        interval = getInterval()
     }
 
     private fun getInterval(): Int {
