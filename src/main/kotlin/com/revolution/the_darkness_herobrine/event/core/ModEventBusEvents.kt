@@ -1,13 +1,11 @@
-package com.revolution.the_darkness_herobrine.event
+package com.revolution.the_darkness_herobrine.event.core
 
 import com.revolution.the_darkness_herobrine.TheDarknessHerobrine
 import com.revolution.the_darkness_herobrine.entity.ModEntities
 import com.revolution.the_darkness_herobrine.entity.client.HerobrineModel
 import com.revolution.the_darkness_herobrine.entity.custom.HerobrineSpy
 import com.revolution.the_darkness_herobrine.entity.custom.HerobrineStalker
-import net.minecraft.world.entity.SpawnPlacementType
 import net.minecraft.world.entity.SpawnPlacementTypes
-import net.minecraft.world.entity.SpawnPlacements
 import net.minecraft.world.level.levelgen.Heightmap
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
