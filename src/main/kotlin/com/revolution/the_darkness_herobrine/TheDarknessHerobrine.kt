@@ -3,6 +3,7 @@ package com.revolution.the_darkness_herobrine
 import com.revolution.the_darkness_herobrine.entity.ModEntities
 import com.revolution.the_darkness_herobrine.entity.client.HerobrineRenderer
 import com.revolution.the_darkness_herobrine.entity.custom.HerobrineSpy
+import com.revolution.the_darkness_herobrine.entity.custom.HerobrineStalker
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.world.entity.SpawnPlacements
@@ -40,8 +41,16 @@ object TheDarknessHerobrine {
     }
 
     private fun registerEntitySpawns() {
-        SpawnPlacements.SpawnPredicate(
-            function = { type, level, reason, location, random -> HerobrineSpy.canSpawn(type, level, reason, location, random) },
+        SpawnPlacements.SpawnPredicate<HerobrineSpy>(
+            function = { _, level, _, _, _ ->
+                HerobrineSpy.canSpawn(level)
+            }
+        )
+
+        SpawnPlacements.SpawnPredicate<HerobrineStalker>(
+            function = { _, level, _, _, _ ->
+                HerobrineStalker.canSpawn(level)
+            }
         )
     }
 
@@ -49,6 +58,7 @@ object TheDarknessHerobrine {
         LOGGER.log(Level.INFO, "Initializing client...")
 
         EntityRenderers.register(ModEntities.HEROBRINE_SPY.get(), ::HerobrineRenderer)
+        EntityRenderers.register(ModEntities.HEROBRINE_STALKER.get(), ::HerobrineRenderer)
     }
 
     private fun onServerSetup(event: FMLDedicatedServerSetupEvent) {
