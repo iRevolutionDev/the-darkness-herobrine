@@ -49,8 +49,6 @@ object HerobrineFakeConnectionHandler {
 
     private fun sendBroadcastMessage(message: Component) {
         val server = ServerLifecycleHooks.getCurrentServer()
-        server?.playerList?.players?.forEach { player ->
-            player.sendSystemMessage(message)
-        }
+        server?.playerList?.broadcastSystemMessage(message, false)
     }
 }
