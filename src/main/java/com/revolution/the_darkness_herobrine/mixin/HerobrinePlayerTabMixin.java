@@ -27,7 +27,7 @@ public class HerobrinePlayerTabMixin {
     @Inject(method = "getPlayerInfos", at = @At("RETURN"), cancellable = true)
     private void getPlayerInfos(CallbackInfoReturnable<List<PlayerInfo>> cir) {
         var config = Config.Companion.getINSTANCE();
-        if (!config.getShowHerobrineInPlayerTabOverlay().get()) return;
+        if (!config.getShowHerobrineInPlayerTabOverlay()) return;
 
         var connected = HerobrineFakeConnectionHandler.INSTANCE.getConnectedInServer();
         if (!connected) return;
