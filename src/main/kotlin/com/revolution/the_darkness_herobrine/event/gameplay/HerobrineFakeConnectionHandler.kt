@@ -1,6 +1,7 @@
 package com.revolution.the_darkness_herobrine.event.gameplay
 
 import com.revolution.the_darkness_herobrine.TheDarknessHerobrine
+import com.revolution.the_darkness_herobrine.config.Config
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.neoforged.bus.api.SubscribeEvent
@@ -35,6 +36,8 @@ object HerobrineFakeConnectionHandler {
 
     @SubscribeEvent
     fun onServerTick(event: ServerTickEvent.Post) {
+        if (!Config.CONFIG.canSendJoinMessages) return
+
         interval--
 
         if (interval > 0) return
@@ -48,6 +51,8 @@ object HerobrineFakeConnectionHandler {
 
     @SubscribeEvent
     fun onClientTick(event: ClientTickEvent.Post) {
+        if (Config.isConfigLoaded && !Config.CONFIG.showHerobrineInPlayerTabOverlay) return
+
         interval--
 
         if (interval > 0) return

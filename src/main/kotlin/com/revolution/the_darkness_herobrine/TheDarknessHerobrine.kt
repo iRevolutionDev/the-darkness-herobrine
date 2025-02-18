@@ -1,19 +1,16 @@
 package com.revolution.the_darkness_herobrine
 
+import com.revolution.the_darkness_herobrine.config.Config
 import com.revolution.the_darkness_herobrine.entity.ModEntities
 import com.revolution.the_darkness_herobrine.entity.client.HerobrineRenderer
-import com.revolution.the_darkness_herobrine.entity.custom.HerobrineSpy
-import com.revolution.the_darkness_herobrine.entity.custom.HerobrineStalker
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.EntityRenderers
-import net.minecraft.world.entity.SpawnPlacements
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent
-import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -29,6 +26,8 @@ object TheDarknessHerobrine {
 
     init {
         ModEntities.ENTITY_TYPES.register(MOD_BUS)
+
+        Config.register()
 
         runForDist(clientTarget = {
             MOD_BUS.addListener(::onClientSetup)

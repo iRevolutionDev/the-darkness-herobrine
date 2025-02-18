@@ -1,6 +1,7 @@
 package com.revolution.the_darkness_herobrine.mixin;
 
 import com.mojang.authlib.GameProfile;
+import com.revolution.the_darkness_herobrine.config.Config;
 import com.revolution.the_darkness_herobrine.event.gameplay.HerobrineFakeConnectionHandler;
 import net.minecraft.client.gui.components.PlayerTabOverlay;
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -25,6 +26,9 @@ public class HerobrinePlayerTabMixin {
 
     @Inject(method = "getPlayerInfos", at = @At("RETURN"), cancellable = true)
     private void getPlayerInfos(CallbackInfoReturnable<List<PlayerInfo>> cir) {
+        var config = Config.Companion.getCONFIG();
+        if (!config.getShowHerobrineInPlayerTabOverlay()) return;
+
         var connected = HerobrineFakeConnectionHandler.INSTANCE.getConnectedInServer();
         if (!connected) return;
 
