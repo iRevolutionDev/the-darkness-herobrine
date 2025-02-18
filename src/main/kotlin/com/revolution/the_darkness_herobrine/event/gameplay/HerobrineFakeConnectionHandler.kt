@@ -5,11 +5,14 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.client.event.ClientTickEvent
 import net.neoforged.neoforge.event.tick.ServerTickEvent
 import net.neoforged.neoforge.server.ServerLifecycleHooks
 
 @EventBusSubscriber(modid = TheDarknessHerobrine.ID)
 object HerobrineFakeConnectionHandler {
+    var connectedInServer: Boolean = false
+
     private const val MIN_INTERVAL = 6000
     private const val MAX_INTERVAL = 18000
 
@@ -39,6 +42,23 @@ object HerobrineFakeConnectionHandler {
         if (messages.isNotEmpty()) {
             sendBroadcastMessage(messages.random())
         }
+
+        connectedInServer = !connectedInServer
+
+        interval = getInterval()
+    }
+
+    @SubscribeEvent
+    fun onClientTick(event: ClientTickEvent.Post) {
+        interval--
+
+        if (interval > 0) return
+
+        if (messages.isNotEmpty()) {
+            sendBroadcastMessage(messages.random())
+        }
+
+        connectedInServer = !connectedInServer
 
         interval = getInterval()
     }

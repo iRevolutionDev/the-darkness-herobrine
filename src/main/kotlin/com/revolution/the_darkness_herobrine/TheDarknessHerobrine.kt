@@ -25,7 +25,7 @@ import thedarkcolour.kotlinforforge.neoforge.forge.runForDist
 object TheDarknessHerobrine {
     const val ID = "the_darkness_herobrine"
 
-    private val LOGGER: Logger = LogManager.getLogger(ID)
+    val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
         ModEntities.ENTITY_TYPES.register(MOD_BUS)
