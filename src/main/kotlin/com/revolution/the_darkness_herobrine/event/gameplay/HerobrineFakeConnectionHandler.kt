@@ -36,7 +36,7 @@ object HerobrineFakeConnectionHandler {
 
     @SubscribeEvent
     fun onServerTick(event: ServerTickEvent.Post) {
-        if (!Config.CONFIG.canSendJoinMessages) return
+        if (!Config.INSTANCE.canSendJoinMessages) return
 
         interval--
 
@@ -51,7 +51,7 @@ object HerobrineFakeConnectionHandler {
 
     @SubscribeEvent
     fun onClientTick(event: ClientTickEvent.Post) {
-        if (Config.isConfigLoaded && !Config.CONFIG.showHerobrineInPlayerTabOverlay) return
+        if (Config.isLoaded && !Config.INSTANCE.showHerobrineInPlayerTabOverlay) return
 
         interval--
 

@@ -10,8 +10,8 @@ import net.neoforged.fml.event.config.ModConfigEvent
 object ConfigEventHandler {
     @SubscribeEvent
     fun onLoad(event: ModConfigEvent.Loading) {
-        if (event.config.spec == Config.CONFIG_SPEC) {
-            Config.isConfigLoaded = true
+        if (event.config.spec == Config.SPEC) {
+            Config.isLoaded = true
         }
     }
 }
