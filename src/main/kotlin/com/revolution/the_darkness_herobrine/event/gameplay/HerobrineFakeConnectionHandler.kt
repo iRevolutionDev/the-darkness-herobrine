@@ -43,8 +43,6 @@ object HerobrineFakeConnectionHandler {
             sendBroadcastMessage(messages.random())
         }
 
-        connectedInServer = !connectedInServer
-
         interval = getInterval()
     }
 
@@ -54,10 +52,7 @@ object HerobrineFakeConnectionHandler {
 
         if (interval > 0) return
 
-        if (messages.isNotEmpty()) {
-            sendBroadcastMessage(messages.random())
-        }
-
+        // This is a fake connection of Herobrine in the server
         connectedInServer = !connectedInServer
 
         interval = getInterval()
