@@ -3,6 +3,7 @@ package com.revolution.the_darkness_herobrine
 import com.revolution.the_darkness_herobrine.config.Config
 import com.revolution.the_darkness_herobrine.entity.ModEntities
 import com.revolution.the_darkness_herobrine.entity.client.HerobrineRenderer
+import com.revolution.the_darkness_herobrine.worldgen.biome.ModBiomePlacement
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.neoforged.bus.api.SubscribeEvent
@@ -26,6 +27,7 @@ object TheDarknessHerobrine {
 
     init {
         ModEntities.ENTITY_TYPES.register(MOD_BUS)
+        ModBiomePlacement.register()
 
         Config.register()
 

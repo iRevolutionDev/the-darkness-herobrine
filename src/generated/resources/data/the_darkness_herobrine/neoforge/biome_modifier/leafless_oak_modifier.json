@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_forest",
+  "features": "the_darkness_herobrine:leafless_oak_tree",
+  "step": "vegetal_decoration"
+}
