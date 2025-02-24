@@ -14,4 +14,18 @@ object ConfigEventHandler {
             Config.isLoaded = true
         }
     }
+
+    @SubscribeEvent
+    fun onReload(event: ModConfigEvent.Unloading) {
+        if (event.config.spec == Config.SPEC) {
+            Config.isLoaded = false
+        }
+    }
+
+    @SubscribeEvent
+    fun onReload(event: ModConfigEvent.Reloading) {
+        if (event.config.spec == Config.SPEC) {
+            Config.isLoaded = true
+        }
+    }
 }
